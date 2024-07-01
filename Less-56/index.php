@@ -146,12 +146,12 @@ else
 {
 	echo '<div  style=" color:#00FFFF; font-size:18px; text-align:center">';
 	$key = addslashes($_POST['key']);
-	$key = mysqli_real_escape_string($key);
+	$key = mysqli_real_escape_string($con,$key);
 	//echo $key;
 	//Query table to verify your result
 	$sql="SELECT 1 FROM $table WHERE $col1= '$key'";
 	//echo "$sql";
-	$result=mysql_query($sql)or die("error in submittion of Key Solution".mysqli_error($con));
+	$result=mysqli_query($con,$sql)or die("error in submittion of Key Solution".mysqli_error($con));
 	 
 	$row = mysqli_fetch_array($result);
 	

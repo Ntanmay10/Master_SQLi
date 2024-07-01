@@ -1,5 +1,7 @@
 README
 ================
+Previously called SQLI_LABS is now re-designed based on PHP MySQL configurations as of Year 2024 by Tanmay Naik & Lay Patel  
+================
 SQLI-LABS is a platform to learn SQLI 
 Following labs are covered for GET and POST scenarios:
 
@@ -33,9 +35,8 @@ Following labs are covered for GET and POST scenarios:
 ========================================================================================
 Install Instructions:
 
-1. Unzip the contents inside the apache folder, for example under /var/www
-2. This will create a folder sql-labs under it. else you can use git command from within /var/www folder.
-/var/www folder and then use following command> git clone https://github.com/Audi-1/sqli-labs.git sqli-labs
+1. Unzip the contents inside the wampp/xampp folder, for example under C:\wamp64\www or C:\xampp\htdocs
+2. This will create a folder sql-labs under it. else you can use git command from within folder > git clone https://github.com/Ntanmay10/Master_SQLi.git sqli-labs
 3. Open the file "db-creds.inc" which is under sql-connections folder inside the sql-labs folder.
 4. Update your MYSQL database username and password.(default for Backtrack are used root:toor)
 5. From your browser access the sql-labs folder to load index.html
@@ -49,11 +50,11 @@ Corrosponding walkthrough video tutorials and explainations can be found at:
 
 1. http://dummy2dummies.blogspot.com 
 2. http://www.securitytube.net/user/Audi
+3. https://www.facebook.com/sqlilabs
 
-you can also find the read along book at https://leanpub.com/SQLI-LABS, work is under process.
 ==========================================================================================
+
 Challenge Section added:
-Less-54 to Less - 61 special challenge lessons added to repository for testing skills learnt.
+Less-54 to Less - 61 special challenge lessons added to repository for testing skills learnt from the other Lab lessons.
+
 ==========================================================================================
-
-

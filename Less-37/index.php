@@ -7,7 +7,7 @@
 </head>
 
 <body bgcolor="#000000">
-	<div style=" margin-top:20px;color:#FFF; font-size:24px; text-align:center"> Welcome&nbsp;&nbsp;<font color="#FF0000"> Dhakkan </font><br></div>
+	<div style="margin-top:20px;color:#FFF; font-size:24px; text-align:center"> Welcome&nbsp;&nbsp;<font color="#FF0000"> Dhakkan </font><br></div>
 
 	<div align="center" style="margin:40px 0px 0px 520px;border:20px; background-color:#0CF; text-align:center; width:400px; height:150px;">
 
@@ -21,7 +21,7 @@
 				</div>
 				<div> Password : &nbsp;&nbsp;&nbsp;
 					<input type="text" name="passwd" value="" />
-				</div></br>
+				</div><br>
 				<div style=" margin-top:9px;margin-left:90px;">
 					<input type="submit" name="submit" value="Submit" />
 				</div>
@@ -42,55 +42,42 @@
 			//including the Mysql connect parameters.
 			include("../sql-connections/sql-connect.php");
 
-
 			// take the variables
 			if (isset($_POST['uname']) && isset($_POST['passwd'])) {
 				$uname1 = $_POST['uname'];
 				$passwd1 = $_POST['passwd'];
 
-				//echo "username before addslashes is :".$uname1 ."<br>";
-				//echo "Input password before addslashes is : ".$passwd1. "<br>";
-
 				//logging the connection parameters to a file for analysis.
 				$fp = fopen('result.txt', 'a');
-				fwrite($fp, 'User Name:' . $uname1);
+				fwrite($fp, 'User Name:' . $uname1 . "\n");
 				fwrite($fp, 'Password:' . $passwd1 . "\n");
 				fclose($fp);
 
-				$uname = $uname1;
-				$passwd = $passwd1;
-
-				//echo "username after addslashes is :".$uname ."<br>";
-				//echo "Input password after addslashes is : ".$passwd;    
+				$uname = mysqli_real_escape_string($con, $uname1);
+				$passwd = mysqli_real_escape_string($con, $passwd1);
 
 				// connectivity 
-				mysqli_query("SET NAMES gbk");
-				@$sql = "SELECT username, password FROM users WHERE username='$uname' and password='$passwd' LIMIT 0,1";
+				mysqli_query($con, "SET NAMES gbk");
+				$sql = "SELECT username, password FROM users WHERE username='$uname' and password='$passwd' LIMIT 0,1";
 				$result = mysqli_query($con, $sql);
-				$row = mysqli_fetch_array($result);
 
-				if ($row) {
-					//echo '<font color= "#0000ff">';	
-
-					echo "<br>";
+				if ($result && mysqli_num_rows($result) > 0) {
+					$row = mysqli_fetch_assoc($result);
 					echo '<font color= "#FFFF00" font size = 4>';
-					//echo " You Have successfully logged in\n\n " ;
 					echo '<font size="3" color="#0000ff">';
 					echo "<br>";
-					echo 'Your Login name:' . $row['username'];
+					echo 'Your Login name:' . htmlspecialchars($row['username']);
 					echo "<br>";
-					echo 'Your Password:' . $row['password'];
+					echo 'Your Password:' . htmlspecialchars($row['password']);
 					echo "<br>";
 					echo "</font>";
 					echo "<br>";
 					echo "<br>";
 					echo '<img src="../images/flag.jpg"  />';
-
 					echo "</font>";
 				} else {
 					echo '<font color= "#0000ff" font size="3">';
-					//echo "Try again looser";
-					print_r(mysqli_error($con));
+					echo "Login failed. Please check your credentials.";
 					echo "</br>";
 					echo "</br>";
 					echo "</br>";
@@ -106,9 +93,10 @@
 			</br>
 			<font size='4' color="#33FFFF">
 				<?php
-
-				echo "Hint: The Username you input is escaped as : " . $uname . "<br>";
-				echo "Hint: The Password you input is escaped as : " . $passwd . "<br>";
+				if (isset($uname) && isset($passwd)) {
+					echo "Hint: The Username you input is escaped as : " . htmlspecialchars($uname) . "<br>";
+					echo "Hint: The Password you input is escaped as : " . htmlspecialchars($passwd) . "<br>";
+				}
 				?>
 
 			</font>
